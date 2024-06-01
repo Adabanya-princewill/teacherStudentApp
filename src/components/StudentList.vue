@@ -4,20 +4,40 @@
             <h1 class="sm:text-3xl text-2xl font-medium title-fonttext-gray-900">List of Students</h1>
             <p class="lg:w-2/3 mx-auto leading-relaxed text-base">you can edit & delete a student</p>
         </div>
-        <ul>
-            <li v-for="student in students" :key="student.studentNumber" class="mx-auto border mt-2 py-3 rounded-lg max-w-lg px-2 flex justify-between items-center">
-                <span class="ml-3 text-xl font-medium text-gray-900"> {{ student.name }} {{ student.surname }}</span>
-                <div class="space-x-3">
-                    <button @click="editStudent(student)"
-                class="inline-flex items-center rounded border-0 bg-gray-100 px-3 py-1 text-base hover:bg-gray-200 focus:outline-none">Edit</button>
-            <button @click="deleteStudent(student.studentNumber)"
-                class="inline-flex items-center rounded border-0 bg-gray-100 px-3 py-1 text-base hover:bg-gray-200 focus:outline-none">Delete</button>
-            </div>                
-            </li>
-        </ul>
+
+        <div class="p-10">
+            <table class="w-3/3 mx-auto">
+                <thead>
+                    <tr class="border-b-2 border-gray-300">
+                        <th class="p-2">S/N</th>
+                        <th class="p-2">Surename</th>
+                        <th class="p-2">Name</th>
+                        <th class="p-2">National ID</th>
+                        <th class="p-2">DOB</th>
+                        <th class="p-2">Students Number</th>
+                    </tr>
+                </thead>
+                <tbody v-for="(student, index) in students" :key="student.studentNumber">
+                    <tr class="bg-gray-100 text-center my-8">
+                        <td class="py-2">{{ index + 1 }}</td>
+                        <td class="py-2">{{ student.surname }}</td>
+                        <td class="py-2">{{ student.name }}</td>
+                        <td class="py-2">{{ student.nationalId }}</td>
+                        <td class="py-2">{{ student.dob? student.dob : '--'}}</td>
+                        <td class="py-2">{{ student.studentNumber }}</td>
+                        <td class="p-2">
+                            <button @click="editStudent(student)"
+                                class="text-green-500 py-2 px-4 rounded-lg hover:shadow-md ">Edit</button>
+                            <button @click="deleteStudent(student.studentNumber)"
+                                class="text-red-500 py-2 px-4 rounded-lg hover:shadow-md">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
       <Modal :show="isModalVisible" @close="closeModal">
         <StudentForm :editMode="true" :existingStudent="selectedStudent" @close="closeModal" />
       </Modal>
+      </div>
     </div>
   </template>
   

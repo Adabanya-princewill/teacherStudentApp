@@ -57,6 +57,7 @@ import { ref, toRefs } from 'vue';
 import { useStore } from 'vuex';
 
 const validateStudentDob = (dob) => {
+    if (!dob) return true;
     const birthDate = new Date(dob);
     const today = new Date();
     const age = today.getFullYear() - birthDate.getFullYear();
@@ -91,7 +92,7 @@ export default {
         const errorMessage = ref('');
 
         const submitForm = () => {
-            if (!validateStudentDob(student.value.dob)) {
+            if (student.value.dob && !validateStudentDob(student.value.dob)) {
                 errorMessage.value = 'Student must be at most 22 years old.';
                 return;
             }
